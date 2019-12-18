@@ -45,13 +45,14 @@ export function group_data_by_session_id(data) {
 	return session_ids
 }
 
-export function get_count(arr, string) {
+export function calc_count(arr, string) {
 	let count = 0
 	arr.forEach(item => {
 		if (item === string) {
 			count++
 		}
 	})
+	// console.log(count)
 	return count
 }
 
@@ -65,9 +66,8 @@ export function add_count_to_journeys(data) {
 	data.forEach(journey => {
 		if (known_journeys.indexOf(journey) === -1) {
 			known_journeys.push(journey)
-			journey_arr.push(gen_row(journey, 1))
-		} else {
-			journey_arr.push(gen_row(journey, get_count(known_journeys, journey)))
+			// journey_arr.push(gen_row(journey, 1))
+			journey_arr.push(gen_row(journey, calc_count(data, journey)))
 		}
 	})
 	return journey_arr
@@ -84,9 +84,9 @@ export function format_data(data) {
 		journey_strings.push(journey_string)
 	}
 	let journeys_with_counts = add_count_to_journeys(journey_strings)
-	console.log('csv format end')
+	console.log('csv format end', journeys_with_counts)
 	let hierarchy = build_hierarchy(journeys_with_counts, delimiter)
-	console.log("hierarchy built",hierarchy)
+	console.log("hierarchy built", hierarchy)
 	return hierarchy
 }
 

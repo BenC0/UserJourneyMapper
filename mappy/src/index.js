@@ -1,5 +1,4 @@
 import "./styles.scss";
-import * as d3 from "./d3.v3.min.js";
 import generate_sunburst from "./modules/sunburst"
 import get_data_from_csv from "./modules/csv_handler"
 
