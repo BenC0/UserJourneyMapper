@@ -1,0 +1,98 @@
+{
+	"name": "Landing",
+	"children": [
+		{
+			"name": "Homepage",
+			"children": [
+				{
+					"name": "PLP",
+					"size": 1
+				},
+				{
+					"name": "PLP",
+					"children": [
+						{
+							"name": "PDP",
+							"size": 1
+						},
+						{
+							"name": "PLP",
+							"children": [
+								{
+									"name": "PDP",
+									"size": 3
+								}
+							]
+						},
+						{
+							"name": "PLP",
+							"size": 1
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "PLP",
+			"children": [
+				{
+					"name": "PLP",
+					"size": 1
+				},
+				{
+					"name": "PLP",
+					"children": [
+						{
+							"name": "PDP",
+							"size": 1
+						},
+						{
+							"name": "PLP",
+							"children": [
+								{
+									"name": "PDP",
+									"size": 3
+								}
+							]
+						},
+						{
+							"name": "PLP",
+							"size": 1
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "PLP",
+			"children": [
+				{
+					"name": "PDP",
+					"size": 1
+				},
+				{
+					"name": "PDP",
+					"children": [
+						{
+							"name": "Bag",
+							"size": 1
+						},
+						{
+							"name": "Bag",
+							"children": [
+								{
+									"name": "Checkout",
+									"size": 3
+								}
+							]
+						},
+						{
+							"name": "PLP",
+							"size": 1
+						}
+					]
+				}
+			]
+		}
+	]
+}

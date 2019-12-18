@@ -1,0 +1,35 @@
+{
+  "name": "mappy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "clean": "rm dist/bundle.js",
+    "server": "webpack-dev-server --open",
+    "watch": "webpack -d --mode development --watch",
+    "build-dev": "webpack -d --mode development",
+    "build-prod": "webpack -p --mode production"
+  },
+  "dependencies": {
+    "csv-parser": "^2.3.2",
+    "d3": "^5.14.2",
+    "parse-csv": "^0.2.0",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.41.3",
+    "webpack-cli": "^3.3.10",
+    "babel-loader": "^8.0.6",
+    "@babel/core": "^7.7.5",
+    "@babel/preset-env": "^7.7.6",
+    "css-loader": "^3.4.0",
+    "style-loader": "^1.0.2",
+    "sass-loader": "^8.0.0",
+    "node-sass": "^4.13.0",
+    "file-loader": "^5.0.2",
+    "url-loader": "^3.0.0"
+  }
+}
