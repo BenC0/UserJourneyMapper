@@ -13,12 +13,11 @@ get_data_from_csv(csvPath).then(data => {
 
 /* TODO: 
 	1.	Wouldn't it be cool if we could upload files directly? - YES
-	2.	Need to work out how I can distribute this to the rest of the team
+	2.	UI needs to be built out, there currently isn't anything other than the graph
+	3.	Graph could be more responsive.
+	4.	Legend required.
+	5.	Different types of graphs would also be cool but let's not think about it for now.
+	6.	Need to work out how I can distribute this to the rest of the team
 		without everyone having to faff around with installing node, python, etc.
 		- Electron is the best shout for this put it's a complete PITA to implement. 
-	3.	UI needs to be built out, there currently isn't anything other than the graph
-	4.	Graph could be more responsive.
-	5.	Breadcrumb trail required.
-	6.	Legend required.
-	7.	Different types of graphs would also be cool but let's not think about it for now.
 */
