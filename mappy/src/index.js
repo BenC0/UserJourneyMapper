@@ -12,9 +12,11 @@ get_data_from_csv(csvPath).then(data => {
 })
 
 /* TODO: 
-	1.	Wouldn't it be cool if we could upload files directly? - YES
-	2.	Different types of graphs would also be cool but let's not think about it for now.
-	3.	Need to work out how I can distribute this to the rest of the team
+	1.	Using the real data causes the whole thing to crash. There are so many rows we need
+		a better way to manage it. (Could be a memory)
+	2.	Wouldn't it be cool if we could upload files directly? - YES
+	3.	Different types of graphs would also be cool but let's not think about it for now.
+	4.	Need to work out how I can distribute this to the rest of the team
 		without everyone having to faff around with installing node, python, etc.
 		- Electron is the best shout for this put it's a complete PITA to implement. 
 */

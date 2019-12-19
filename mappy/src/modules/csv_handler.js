@@ -84,9 +84,9 @@ export function format_data(data) {
 		journey_strings.push(journey_string)
 	}
 	let journeys_with_counts = add_count_to_journeys(journey_strings)
-	console.log('csv format end', journeys_with_counts)
+	console.log('csv format end')
 	let hierarchy = build_hierarchy(journeys_with_counts, delimiter)
-	console.log("hierarchy built", hierarchy)
+	console.log("hierarchy built")
 	return hierarchy
 }
 

@@ -13,7 +13,7 @@ $font-color: #1a1a1a;
 $font-color-night: $white;
 
 $text-shadow: 0px 0px 1px rgba(black, .35),
-				0px 2px 3px rgba(black, .35);
+0px 2px 3px rgba(black, .35);
 
 :root {
 	--background-color: #{$background-color};
@@ -127,6 +127,7 @@ path {
 			text-shadow: $text-shadow;
 			text-transform: capitalize;
 			color: $white;
+			font-size: 15px;
 		}
 
 		&::before {
@@ -151,6 +152,6 @@ path {
 			100% 70%,
 			50% 100%,
 			0 70%
-		);
+			);
 	}
 }

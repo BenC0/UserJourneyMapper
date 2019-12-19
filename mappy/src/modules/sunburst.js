@@ -7,21 +7,33 @@ const body_height = body.clientHeight
 
 const width = (body_width < body_height) ? body_width : body_height
 const radius = width / 6;
+const nBrown_orange = "#ee6d00"
+const nBrown_blue = "#2c2954"
 
 let totalSize = 0
 let colors = {
-    // "Home Page": "#aaf796",
-    "End": "#333",
+    "Home Page": nBrown_orange,
+    "End": nBrown_blue,
     "error": "#ff2828"
 }
 
 let night = (body.getAttribute('night') === undefined) ? false : ((body.getAttribute('night')) ? true : false) 
 let luminosity = night ? "bright" : "dark"
-console.log(luminosity)
+
+function randomIntFromInterval(min, max) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function pick_random_color_from_palette() {
+    let palette = [nBrown_orange, nBrown_blue, "monochrome"]
+    let random_int = randomIntFromInterval(0, palette.length)
+    return palette[random_int]
+}
 
 function get_colour(name) {
     let col = randomcolor({
-        luminosity: luminosity
+        luminosity: luminosity,
+        hue: pick_random_color_from_palette()
     })
 
     if (colors[name] === undefined) {
