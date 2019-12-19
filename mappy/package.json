@@ -17,6 +17,7 @@
     "csv-parser": "^2.3.2",
     "d3": "^5.14.2",
     "parse-csv": "^0.2.0",
+    "randomcolor": "^0.5.4",
     "webpack-dev-server": "^3.9.0"
   },
   "devDependencies": {

@@ -1,10 +1,52 @@
 import * as d3 from "d3"
+import * as randomcolor from "randomcolor"
 
-const width = 932;
+const body = document.body
+const body_width = body.clientWidth
+const body_height = body.clientHeight
+
+const width = (body_width < body_height) ? body_width : body_height
 const radius = width / 6;
 
 let totalSize = 0
-let colors = {}
+let colors = {
+    // "Home Page": "#aaf796",
+    "End": "#333",
+    "error": "#ff2828"
+}
+
+let night = (body.getAttribute('night') === undefined) ? false : ((body.getAttribute('night')) ? true : false) 
+let luminosity = night ? "bright" : "dark"
+console.log(luminosity)
+
+function get_colour(name) {
+    let col = randomcolor({
+        luminosity: luminosity
+    })
+
+    if (colors[name] === undefined) {
+        colors[name] = col
+    } else {
+        col = colors[name]
+    }
+    return col
+}
+
+export function build_leg(color, text) {
+    return `<li style="background-color: ${color}"><span>${text}</span></li>`
+
+}
+
+export function build_legend() {
+    let legend_list = document.querySelector('#legend_list')
+    for( var color in colors ) {
+        if (color !== "End" && color !== "error") {
+            legend_list.insertAdjacentHTML('beforeend',build_leg(colors[color], color))
+        }
+    }
+    legend_list.insertAdjacentHTML('beforeend',build_leg(colors["End"], "End"))
+    legend_list.insertAdjacentHTML('beforeend',build_leg(colors["error"], "error"))
+}
 
 // Given a node in a partition layout, return an array of all of its ancestor
 // nodes, highest first, but excluding the root.
@@ -34,7 +76,6 @@ export function updateBreadcrumbs(nodeArray) {
 	let totalVal = 0
 	let breadcrumbs = document.querySelector('#breadcrumbs')
 	breadcrumbs.innerHTML = ""
-	console.log(colors)
 	nodeArray.forEach(node => {
 		let data = node.data
 		let name = data.name
@@ -67,8 +108,6 @@ export default function generate_sunburst(data) {
 	}
     console.log(data);
     const root = partition(data);
-    let color = d3.scaleOrdinal().range(d3.quantize(d3.interpolateRainbow, data.children.length + 1));
-
     root.each(d => d.current = d);
 
     const svg = d3.select('#partitionSVG')
@@ -77,17 +116,17 @@ export default function generate_sunburst(data) {
             .style("font", "10px sans-serif");
 
     const g = svg.append("g")
-            .attr("transform", `translate(${width / 2},${width / 2})`);
+            .attr("transform", `translate(${width / 1.75},${width / 1.75})`);
 
     const path = g.append("g")
             .selectAll("path")
             .data(root.descendants().slice(1))
             .join("path")
             .attr("fill", d => {
-                while (d.depth > 1)
-                    d = d.parent;
-                colors[d.data.name] = color(d.data.name)
-                return color(d.data.name);
+                if (colors[d.data.name] === undefined) {
+                    colors[d.data.name] = get_colour(d.data.name)
+                }
+                return colors[d.data.name];
             })
             .attr("fill-opacity", d => arcVisible(d.current) ? (d.children ? 0.6 : 0.4) : 0)
             .attr("d", d => arc(d.current));
@@ -96,33 +135,33 @@ export default function generate_sunburst(data) {
             .style("cursor", "pointer")
             .on("click", clicked);
 
-    path.append("title")
+    path.append("text")
             .text(d => {
             	// console.log(d.value)
             	totalSize += d.value
             	return `${d.ancestors().map(d => d.data.name).reverse().join("/")}\n${format(d.value)}`
             });
 
-    console.log(totalSize)
+    build_legend()
 
     const label = g.append("g")
-            .attr("pointer-events", "none")
-            .attr("text-anchor", "middle")
-            .style("user-select", "none")
-            .selectAll("text")
-            .data(root.descendants().slice(1))
-            .join("text")
-            .attr("dy", "0.35em")
-            .attr("fill-opacity", d => +labelVisible(d.current))
-            .attr("transform", d => labelTransform(d.current))
-            .text(d => d.data.name);
+        .attr("pointer-events", "none")
+        .attr("text-anchor", "middle")
+        .style("user-select", "none")
+        .selectAll("text")
+        .data(root.descendants().slice(1))
+        .join("text")
+        .attr("dy", "0.35em")
+        .attr("fill-opacity", d => +labelVisible(d.current))
+        .attr("transform", d => labelTransform(d.current))
+        .text(d => d.data.name);
 
     const parent = g.append("circle")
-            .datum(root)
-            .attr("r", radius)
-            .attr("fill", "none")
-            .attr("pointer-events", "all")
-            .on("click", clicked);
+        .datum(root)
+        .attr("r", radius)
+        .attr("fill", "none")
+        .attr("pointer-events", "all")
+        .on("click", clicked);
 
     function clicked(p) {
         parent.datum(p.parent || root);
