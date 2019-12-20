@@ -25,7 +25,7 @@ function randomIntFromInterval(min, max) { // min and max included
 }
 
 function pick_random_color_from_palette() {
-    let palette = [nBrown_orange, nBrown_blue, "monochrome"]
+    let palette = [nBrown_orange, nBrown_blue]
     let random_int = randomIntFromInterval(0, palette.length)
     return palette[random_int]
 }

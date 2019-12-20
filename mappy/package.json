@@ -14,8 +14,9 @@
     "build-prod": "webpack -p --mode production"
   },
   "dependencies": {
-    "csv-parser": "^2.3.2",
+    "csvtojson": "^2.0.10",
     "d3": "^5.14.2",
+    "papaparse": "^5.1.1",
     "parse-csv": "^0.2.0",
     "randomcolor": "^0.5.4",
     "webpack-dev-server": "^3.9.0"

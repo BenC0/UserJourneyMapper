@@ -7,7 +7,7 @@ const DEBUG = true
 const csvPath = DEBUG ? './sample-data.csv' : './data.txt'
 
 console.log('app start')
-get_data_from_csv(csvPath).then(data => {
+get_data_from_csv(csvPath, data => {
 	generate_sunburst(data)
 })
 
@@ -15,6 +15,7 @@ get_data_from_csv(csvPath).then(data => {
 	1.	Using the real data causes the whole thing to crash. There are so many rows we need
 		a better way to manage it. (Could be a memory)
 		- Maybe the data needs to be preformatted. Preformatting the data through Python would reduce the amount of shit the app needs to do. There would be a fuck ton less data because it's been smooshed (It's 9am the morning after the work party, doing real thinking and using actual terminology ain't happening...) 
+		- I don't wanna preformat it as I won't be able to include that in the electron bundle. Maybe JS can just be better?
 	2.	Wouldn't it be cool if we could upload files directly? - YES
 	3.	Different types of graphs would also be cool but let's not think about it for now.
 	4.	Need to work out how I can distribute this to the rest of the team

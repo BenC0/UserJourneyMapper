@@ -1,4 +1,5 @@
 import * as csv from 'parse-csv'
+import * as Papa from 'papaparse'
 import build_hierarchy from "./build_hierarchy"
 
 const delimiter = "|>"
@@ -8,7 +9,8 @@ const journey_end_string = "End"
 export function build_journey_string(data) {
 	let journey_string = ''
 	data.forEach(obj => {
-		journey_string = `${journey_string}${obj.page_type}${delimiter}`
+		// console.log(obj)
+		journey_string = `${journey_string}${obj['"page_type"'].replace(/"/g, '')}${delimiter}`
 	})
 	journey_string = `${journey_string}${journey_end_string}`
 	// journey_string = journey_string.replace(`${delimiter}${journey_end_string}`, '')
@@ -19,8 +21,8 @@ export function order_impressions(data) {
 	for (var session in data) {
 		let arr = data[session]
 		arr.sort((a, b) => {
-			const orderA = parseInt(a.page_view_sequence_number)
-			const orderB = parseInt(b.page_view_sequence_number)
+			const orderA = parseInt(a['"sequence_number"'])
+			const orderB = parseInt(b['"sequence_number"'])
 			let comparison = 0;
 			if (orderA > orderB) {
 				comparison = 1;
@@ -36,7 +38,8 @@ export function order_impressions(data) {
 export function group_data_by_session_id(data) {
 	let session_ids = {}
 	data.forEach(row => {
-		let session_id = row.session_id
+		// console.log('group_data_by_session_id', row)
+		let session_id = row['"session_id"']
 		if (session_ids[session_id] === undefined) {
 			session_ids[session_id] = []
 		}
@@ -90,15 +93,29 @@ export function format_data(data) {
 	return hierarchy
 }
 
-export default function get_data_from_csv(csvPath) {
+export default function get_data_from_csv(csvPath, callback) {
 	console.log('csv handler start')
-	return fetch(csvPath)
+	fetch(csvPath)
 	.then(csvData => csvData.text())
 	.then(csvData => {
 		console.log('csv loaded')
-		var obj = csv.toJSON(csvData, {headers: {included: true}});
-		console.log('csv parsed')
-		return format_data(obj)
+		// var obj = csv.toJSON(csvData, {headers: {included: true}});
+		Papa.parse(csvData, {
+			header: true,
+			quoteChar: '"',
+			fastMode: true,
+			skipEmptyLines: true,
+			transformHeader:function(h) {
+				return h.toLowerCase();
+			},
+			complete: (results, file) => {
+				console.log('csv parsed')
+				console.log(results.data)
+				let d = format_data(results.data)
+				callback(d)
+			}
+		})
+		// return format_data(obj)
 	})
 	// return fetch("./example.json")
 	// .then(data => data.json())
