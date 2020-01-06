@@ -141,6 +141,7 @@ export default function generate_sunburst(data) {
                 return colors[d.data.name];
             })
             .attr("fill-opacity", d => arcVisible(d.current) ? (d.children ? 0.6 : 0.4) : 0)
+	        .attr("style", d => `display: ${arcVisible(d.current) ? "inherit" : "none"}`)
             .attr("d", d => arc(d.current));
 
     path.filter(d => d.children)
@@ -149,7 +150,7 @@ export default function generate_sunburst(data) {
 
     path.append("text")
             .text(d => {
-            	// console.log(d.value)
+            	// console.log(d.value) 
             	totalSize += d.value
             	return `${d.ancestors().map(d => d.data.name).reverse().join("/")}\n${format(d.value)}`
             });
@@ -165,6 +166,7 @@ export default function generate_sunburst(data) {
         .join("text")
         .attr("dy", "0.35em")
         .attr("fill-opacity", d => +labelVisible(d.current))
+        .attr("style", d => `display: ${labelVisible(d.current) ? "inherit" : "none"}`)
         .attr("transform", d => labelTransform(d.current))
         .text(d => d.data.name);
 
@@ -202,12 +204,14 @@ export default function generate_sunburst(data) {
                     return +this.getAttribute("fill-opacity") || arcVisible(d.target);
                 })
                 .attr("fill-opacity", d => arcVisible(d.target) ? (d.children ? 0.6 : 0.4) : 0)
+                .attr("style", d => `display: ${arcVisible(d.target) ? "inherit" : "none"}`)
                 .attrTween("d", d => () => arc(d.current));
 
         label.filter(function (d) {
             return +this.getAttribute("fill-opacity") || labelVisible(d.target);
         }).transition(t)
                 .attr("fill-opacity", d => +labelVisible(d.target))
+                .attr("style", d => `display: ${labelVisible(d.target) ? "inherit" : "none"}`)
                 .attrTween("transform", d => () => labelTransform(d.current));
     }
 
