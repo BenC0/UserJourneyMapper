@@ -3,4 +3,4 @@
 **/example/**
 **.sublime-**
 **pycache**
-**data.txt
+**/mappy/dist/data.txt
