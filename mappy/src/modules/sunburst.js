@@ -56,8 +56,8 @@ export function build_legend() {
             legend_list.insertAdjacentHTML('beforeend',build_leg(colors[color], color))
         }
     }
-    legend_list.insertAdjacentHTML('beforeend',build_leg(colors["End"], "End"))
     legend_list.insertAdjacentHTML('beforeend',build_leg(colors["error"], "error"))
+    legend_list.insertAdjacentHTML('beforeend',build_leg(colors["End"], "End"))
 }
 
 // Given a node in a partition layout, return an array of all of its ancestor
